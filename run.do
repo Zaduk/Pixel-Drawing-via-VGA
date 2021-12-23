@@ -1,6 +1,6 @@
 vlib work
-vlog part2.v
-vsim part2
+vlog fsm.v
+vsim fsm
 log {/*}
 add wave -r {/*}
 

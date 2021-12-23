@@ -5,13 +5,13 @@
 
 // Some constants are set as parameters to accommodate the different implementations
 // X_SCREENSIZE, Y_SCREENSIZE are the dimensions of the screen
-//       Default is 160 x 120, which is size for fake_fpga and baseline for the DE1_SoC vga controller
+//       Default is 160 x 120, which is the size for the DE1_SoC vga controller
 // CLOCKS_PER_SECOND should be the frequency of the clock being used.
 
 //toplevel: takes in DE1-SoC keys and switches
 
 
-module part3(iColour,iResetn,iClock,oX,oY,oColour,oPlot);
+module bounce(iColour,iResetn,iClock,oX,oY,oColour,oPlot);
     input wire [2:0] iColour;
     input wire 	    iResetn;
     input wire 	    iClock;
@@ -70,7 +70,7 @@ module part3(iColour,iResetn,iClock,oX,oY,oColour,oPlot);
 					.oX(oX), 
 					.oY(oY));
 
-endmodule // part3
+endmodule // bounce
 
 
 //main FSM
@@ -196,7 +196,7 @@ module mainControl(resetn, clk, iColour, plotDone, FrameRateEN, FrameMoveEN, xMA
 endmodule
 
 
-//rate divider from lab 5
+//rate divider
 module Counter(clock, resetn, Clear_b, CycleNum, PulseCount);
     //inputs
     input clock, resetn, Clear_b;

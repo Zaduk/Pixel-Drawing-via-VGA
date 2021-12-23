@@ -1,5 +1,5 @@
 //toplevel: takes in DE1-SoC keys and switches
-module part2(KEY, SW, CLOCK_50, x_, y_, colour, writeEn);
+module fsm(KEY, SW, CLOCK_50, x_, y_, colour, writeEn);
     input [3:0] KEY;
     input CLOCK_50;
     input [9:0] SW;
@@ -9,12 +9,12 @@ module part2(KEY, SW, CLOCK_50, x_, y_, colour, writeEn);
     output [2:0] colour;
 
 
-    part2_drawBox p2(.iResetn(KEY[0]), .iPlotBox(KEY[1]), .iBlack(KEY[2]), .iColour(SW[9:7]), .iLoadX(KEY[3]), .iXY_Coord(SW[6:0]),
+    fsm_drawBox p2(.iResetn(KEY[0]), .iPlotBox(KEY[1]), .iBlack(KEY[2]), .iColour(SW[9:7]), .iLoadX(KEY[3]), .iXY_Coord(SW[6:0]),
             .iClock(CLOCK_50), .oX(x_), .oY(y_), .oColour(colour), .oPlot(writeEn));
 endmodule
 
 
-module part2_drawBox(iResetn,iPlotBox,iBlack,iColour,iLoadX,iXY_Coord,iClock,oX,oY,oColour,oPlot);
+module fsm_drawBox(iResetn,iPlotBox,iBlack,iColour,iLoadX,iXY_Coord,iClock,oX,oY,oColour,oPlot);
     //VGA monitor screenn pixel size
     parameter X_SCREEN_PIXELS = 8'd160;
     parameter Y_SCREEN_PIXELS = 7'd120;
@@ -26,7 +26,7 @@ module part2_drawBox(iResetn,iPlotBox,iBlack,iColour,iLoadX,iXY_Coord,iClock,oX,
     input wire [6:0] iXY_Coord; //from switches on DE1-SoC
     input wire iClock;
 
-    //outputs, going into VGA adapter (inside fake_fpga)
+    //outputs, going into VGA adapter
     output wire [6:0] oY;
     output wire [7:0] oX;   
     output wire oPlot; 
@@ -69,7 +69,7 @@ module part2_drawBox(iResetn,iPlotBox,iBlack,iColour,iLoadX,iXY_Coord,iClock,oX,
                     .oX(oX), 
                     .oY(oY));
    
-endmodule // end of part2
+endmodule // end of fsm
 
 //controlCenter puts together mainControl and mainDatapath
 module controlCenter(resetn, clock, xScreenSize, x_coord, x_boxsize, yScreenSize, y_coord, y_boxsize, iXY_Coord, iColour, iPlotBox, iBlack, iLoadX, plotDone, startPlot, colour);
@@ -95,11 +95,11 @@ module controlCenter(resetn, clock, xScreenSize, x_coord, x_boxsize, yScreenSize
                     .ld_x_coord(ld_x_coord), 
                     .ld_y_coord(ld_y_coord), 
                     .ld_black(ld_black),
-                    .drawStart(drawStart) );
+                    .drawStart(drawStart));
 
     mainDatapath mainD(.resetn(resetn), 
                     .clk(clock), 
-                    .iColour ( iColour),
+                    .iColour (iColour),
                     .iXY_Coord(iXY_Coord),
                     .xScreenSize (xScreenSize),
                     .yScreenSize (yScreenSize),
@@ -112,7 +112,7 @@ module controlCenter(resetn, clock, xScreenSize, x_coord, x_boxsize, yScreenSize
                     .y_coord(y_coord), 
                     .x_boxsize(x_boxsize), 
                     .y_boxsize(y_boxsize), 
-                    .startPlot(startPlot)  );	
+                    .startPlot(startPlot));	
 endmodule 
 
 module mainControl(resetn, clk, plotBox, black, loadx, plotDone, ld_x_coord, ld_y_coord, ld_black, drawStart);
