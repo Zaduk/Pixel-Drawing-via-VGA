@@ -16,6 +16,7 @@ Required tools:
 2. In Quartus, synthesize Verilog code in a new project and make sure it compiles without error. 
 3. Upload the code to the board. This may take a while.
 4. Then, connect the board to your monitor using a VGA connection and select the right souce on your monitor. 
+5. (Optional) To faciliate any further testing to fix any errors with the Verilog code, run the `run.do` simulation script in ModelSim. 
 
 The board is now ready to draw pixels!
 
