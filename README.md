@@ -17,7 +17,7 @@ Required tools:
 3. Upload the code to the board. This may take a while.
 4. Then, connect the board to your monitor using a VGA connection and select the right souce on your monitor. 
 
-Your board is now ready for the procedure below.
+The board is now ready to draw pixels!
 
 
 # How to Use
@@ -40,3 +40,6 @@ Notes:
 - Using one input for both X and Y reduces the number of switches needed. 
 
 The DE1-SoC has 10 switches, 3 of which we use for the 3-bit colour bus and 7 for the X bus (add a most significant bit of 0 to allow for 2^8 = 256 x-values for a max `X_coord` of 160 px) then for the Y bus (only needs 7 bits since max Y value is 120 px and 2^7 = 128).  
+
+
+Pixel box bouncing off monitor edges (like logos on screensavers) with `bouncing.v` has some bugs.
